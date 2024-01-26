@@ -13,7 +13,6 @@ export default function OAuth() {
     const handleGoogleClick = async () => {
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ prompt: 'select_account'});
-
         try {
             const resultFromGoogle = await signInWithPopup(auth, provider);
             const res = await fetch('/api/auth/google', {
@@ -36,8 +35,7 @@ export default function OAuth() {
     }
 
   return (
-    <Button type="button" gradientDuoTone='pinkToOrange' outline onClick=
-    {handleGoogleClick}>
+    <Button type="button" gradientDuoTone='pinkToOrange' outline onClick={handleGoogleClick}>
         <AiFillGoogleCircle className='w-6 h-6 mr-2' />
             continue with Google
     </Button>
