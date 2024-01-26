@@ -13,7 +13,7 @@ export default function Dashboard() {
     if (tabFromUrl) {
       setTab(tabFromUrl);
     }
-  }, [location.search])
+  }, [location.search]);
   return (
     <div>
       <div className="">
