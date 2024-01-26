@@ -23,7 +23,6 @@ export default function Dashboard() {
   
         {/* Right Side Profile info */}
         {tab === 'profile' && <DashProfile />}
-      
     </div>
-  )
+  );
 }

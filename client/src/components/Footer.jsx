@@ -76,7 +76,7 @@ export default function FooterComponent() {
                 by="AlexKiriungi" 
                 year={new Date().getFullYear()} 
                 />
-                <div className="flex gap-6 sm:mt-0 mt-4 sm:justfy-center">
+                <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
                     <Footer.Icon href="https://linkedin.com/in/alex-kiriungi-719993200/"
                     target="_blank" 
                     rel="noopener noreferrer" 
