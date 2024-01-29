@@ -15,6 +15,7 @@ export default function CreatePost() {
                     <option value="advertisement">Advertisement</option>
                     <option value="technology">Technology</option>
                     <option value="inspiration">Inspiration</option>
+                    <option value="regrets">Regrets</option>
                     <option value="meme">Meme</option>
                 </Select>
             </div>
