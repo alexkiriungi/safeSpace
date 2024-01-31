@@ -17,7 +17,7 @@ export default function UpdatePost() {
     const [ imageUploadError, setImageUploadError ] = useState(null);
     const [ formData, setFormData ] = useState({});
     const [ publishError, setPublishError ] = useState(null);
-    const { postId } = useParams();
+    let { postId } = useParams();
 
     useEffect(() => {
         try {
@@ -25,7 +25,6 @@ export default function UpdatePost() {
                 const res = await fetch(`/api/post/getposts?postId=${postId}`);
                 const data = await res.json();
                 if (!res.ok) {
-                    console.log(error);
                     setPublishError(data.message);
                     return;
                 } 
@@ -36,7 +35,7 @@ export default function UpdatePost() {
             };
             fetchPost();
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
     }, [postId]);
 
@@ -79,14 +78,12 @@ export default function UpdatePost() {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try{
+        try {
             const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
-                
             });
-            console.log(formData);
             const data = await res.json();
             if (!res.ok) {
                 setPublishError(data.message);
@@ -112,11 +109,11 @@ export default function UpdatePost() {
                         id='title' 
                         className="flex-1" 
                         onChange={(e)=> setFormData({...formData, title: e.target.value })}
-                        value={formData.title} 
+                        value={formData?.title} 
                         />
                     <Select
                         onChange={(e)=> setFormData({ ...formData, category: e.target.value })}
-                        value={formData.category}
+                        value={formData?.category}
                     >
                         <option value="uncategorized">Select a category</option>
                         <option value="advertisement">Advertisement</option>
@@ -142,9 +139,9 @@ export default function UpdatePost() {
                         {imageUploadError}
                     </Alert>
                 )}
-                {formData.image && (
+                {formData?.image && (
                 <img 
-                    src={formData.image}
+                    src={formData?.image}
                     alt='upload'
                     className="w-full h-72 object-cover" 
                     />
@@ -153,7 +150,7 @@ export default function UpdatePost() {
                     theme="snow" 
                     placeholder="Share your thoughts..." 
                     className='h-72 mb-12' 
-                    value={formData.content}
+                    value={formData?.content}
                     required 
                     onChange={(value) => {
                     setFormData({ ...formData, content: value })}}

@@ -33,8 +33,7 @@ export default function DashPosts() {
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
     try {
-      const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&
-        startIndex=${startIndex}`);
+      const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
       const data = await res.json();
       if (res.ok) {
         setUserPosts((prev) => [...prev, ...data.posts]);
@@ -80,11 +79,11 @@ export default function DashPosts() {
                 <span>Edit</span>
               </Table.HeadCell>
             </Table.Head>
-            {userPosts.map((post) => (
+            { userPosts.map(post => (
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                   <Table.Cell>
-                    {new Date(post.updatedAt).toLocaleDateString()}
+                    { new Date(post.updatedAt).toLocaleDateString() }
                   </Table.Cell>
                   <Table.Cell>
                     <Link to={`/post/${post.slug}`}>
@@ -95,8 +94,7 @@ export default function DashPosts() {
                     </Link>
                   </Table.Cell>
                   <Table.Cell>
-                    <Link className='font-medium text-gray-900 dark:text-white' to=
-                      {`/post/${post.slug}`}>{post.title}</Link>
+                    <Link className='font-medium text-gray-900 dark:text-white' to={`/post/${post.slug}`}>{post.title}</Link>
                   </Table.Cell>
                   <Table.Cell>{post.category}</Table.Cell>
                   <Table.Cell>
@@ -110,8 +108,7 @@ export default function DashPosts() {
                     </span>
                   </Table.Cell>
                   <Table.Cell>
-                    <Link className='text-teal-500 hover:underline' 
-                    to={`/update-post/${post._id}`}>
+                    <Link className='text-teal-500 hover:underline' to={`/update-post/${post._id}`} >
                       <span>
                         Edit
                       </span>
