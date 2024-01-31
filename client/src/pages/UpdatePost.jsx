@@ -7,10 +7,11 @@ import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import { useSelector } from "react-redux";
 
 export default function UpdatePost() {
     const navigate = useNavigate();
+    const { currentUser } = useSelector((state) => state.user);
     const [ file, setFile ] = useState(null);
     const [ imageUploadProgress, setImageUploadProgress ] = useState(null);
     const [ imageUploadError, setImageUploadError ] = useState(null);
@@ -35,7 +36,7 @@ export default function UpdatePost() {
             };
             fetchPost();
         } catch (error) {
-            console.log(error)
+            console.log(error.message)
         }
     }, [postId]);
 
@@ -79,11 +80,13 @@ export default function UpdatePost() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            const res = await fetch('/api/post/create', {
-                method: 'POST',
+            const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`, {
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
+                
             });
+            console.log(formData);
             const data = await res.json();
             if (!res.ok) {
                 setPublishError(data.message);
@@ -109,7 +112,8 @@ export default function UpdatePost() {
                         id='title' 
                         className="flex-1" 
                         onChange={(e)=> setFormData({...formData, title: e.target.value })}
-                        value={formData.title} />
+                        value={formData.title} 
+                        />
                     <Select
                         onChange={(e)=> setFormData({ ...formData, category: e.target.value })}
                         value={formData.category}
