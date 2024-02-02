@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 export default function DashPosts() {
-  const { currentUser } = useSelector(state => state.user);
+  const { currentUser } = useSelector((state) => state.user);
   const [ userPosts, setUserPosts ] = useState([]);
   const [ showMore, setShowMore ] = useState(true);
   const [ showModal, setShowModal ] = useState(false);
@@ -79,7 +79,7 @@ export default function DashPosts() {
                 <span>Edit</span>
               </Table.HeadCell>
             </Table.Head>
-            { userPosts.map(post => (
+            {userPosts.map((post) => (
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                   <Table.Cell>
@@ -147,7 +147,7 @@ export default function DashPosts() {
                 </div>
             </div>
         </Modal.Body>
-    </Modal>
+      </Modal>
     </div>
   );
 }
