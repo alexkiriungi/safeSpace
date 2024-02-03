@@ -4,13 +4,14 @@ import About from './pages/About';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Dashboard from './pages/Dashboard';
-import Projects from './pages/Projects';
+import Ideas from './pages/Ideas';
 import Header from './components/Header';
 import FooterComponent from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
 import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute';
 import CreatePost from './pages/CreatePost';
 import UpdatePost from './pages/UpdatePost';
+import PostPage from './pages/PostPage';
 
 
 export default function App() {
@@ -29,7 +30,8 @@ export default function App() {
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
-        <Route path="/ideas" element={<Projects />} />
+        <Route path="/ideas" element={<Ideas />} />
+        <Route path="/post/:postSlug" element={<PostPage />} />
       </Routes>
       <FooterComponent />
     </BrowserRouter>
