@@ -47,6 +47,14 @@ export default function DashPosts() {
   };
 
   const handleDeleteUser = async () => {
+    try {
+        const res = await fetch(`/api/user/delte/${userIdToDelete}`, {
+            method: 'DELETE',
+        });
+        const data = await res.json();
+    } catch (error) {
+        console.log(error.message)
+    }
     
   };
   return (
