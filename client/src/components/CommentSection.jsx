@@ -4,8 +4,13 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export default function CommentSection ({postId}) {
-    const currentUser = useSelector(state => state.user);
+    const { currentUser } = useSelector((state) => state.user);
     const [ comment, setComment ] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    };
+
     return (
         <div className='max-w-2xl mx-auto w-full p-3'>
             {currentUser ? 
@@ -29,7 +34,7 @@ export default function CommentSection ({postId}) {
             )}
             {currentUser && (
                 <form className='border border-teal-500 rounded-md
-                p-3'>
+                p-3' onSubmit={handleSubmit}>
                     <Textarea 
                     placeholder='Add a comment...'
                     rows='3'
@@ -38,7 +43,7 @@ export default function CommentSection ({postId}) {
                     value={comment} />
                     <div className='flex justify-between items-center mt-5'>
                         <p className='text-gray-500 text-xs'>
-                            200 characters left
+                            {200 - comment.length} characters remaining
                         </p>
                         <Button outline gradientDuoTone='purpleToBlue' 
                         type='submit'>
