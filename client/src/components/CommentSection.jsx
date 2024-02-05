@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Alert } from 'flowbite-react';
+import Comment from './Comment';
 
 export default function CommentSection ({postId}) {
     const { currentUser } = useSelector((state) => state.user);
@@ -93,6 +94,23 @@ export default function CommentSection ({postId}) {
                         </Alert>
                     )}
                 </form>
+            )}
+            {comments.length === 0 ? (
+                <p className='text-sm my-5'>No Comments available!</p>
+            ): (
+                <>
+                    <div className='text-sm my-5 flex items-center gap-1'>
+                        <p>Comments</p>
+                        <div className='border border-gray-500 py-1 px-2 rounded-sm'>
+                            <p>{comments.length}</p>
+                        </div>
+                    </div>
+                    {comments.map(comment => (
+                        <Comment 
+                        key={comment._id}
+                        comment={comment} />
+                    ))}
+                </>
             )}
         </div>
     );
