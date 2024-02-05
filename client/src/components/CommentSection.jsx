@@ -1,5 +1,5 @@
 import { Button, TextInput, Textarea } from 'flowbite-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Alert } from 'flowbite-react';
@@ -8,6 +8,7 @@ export default function CommentSection ({postId}) {
     const { currentUser } = useSelector((state) => state.user);
     const [ comment, setComment ] = useState('');
     const [ commentError, setCommentError] = useState(null);
+    const [ comments, setComments ] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,9 +30,23 @@ export default function CommentSection ({postId}) {
             } 
         } catch (error) {
             setCommentError(error.message);
-        }
-        
+        }  
     };
+    useEffect(()=>{
+        const getComments = async () => {
+            try {
+                const res = await fetch(`/api/comment/getPostComments/${postId}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setComments(data);
+                }
+            } catch (error) {
+                console.log(error.mesage)
+            }
+        }
+        getComments();
+    }, [postId])
+
 
     return (
         <div className='max-w-2xl mx-auto w-full p-3'>
