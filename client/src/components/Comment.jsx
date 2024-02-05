@@ -34,11 +34,11 @@ export default function Comment({comment, onLike, onEdit }) {
             const res = await fetch(`/api/comment/editComment/${comment._id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    content: editedContent
-                })
+                    content: editedContent,
+                }),
             });
             if (res.ok) {
                 setIsEditing(false);
@@ -69,7 +69,7 @@ export default function Comment({comment, onLike, onEdit }) {
                         <Textarea 
                             className="mb-2"
                             value={editedContent}
-                            onChange={(e)=> setEditedContent(e.target.value)}
+                            onChange={(e) => setEditedContent(e.target.value)}
                         />
                         <div className="flex justify-end gap-2 text-xs">
                             <Button
@@ -90,8 +90,7 @@ export default function Comment({comment, onLike, onEdit }) {
                                 Cancel
                             </Button>
                         </div>
-                    </>
-                    
+                    </>    
                 ) : (
                     <>
                         <p className="text-gray-500 mb-2">
@@ -118,13 +117,14 @@ export default function Comment({comment, onLike, onEdit }) {
                                     <button 
                                     type="button"
                                     onClick={handleEdit}
-                                    className="text-gray-400 hover:text-blue-500" >Edit</button>
+                                    className="text-gray-400 hover:text-blue-500" >
+                                    Edit
+                                    </button>
                                 )
                             }
                         </div>
                     </>
-                )}
-                
+                )}  
             </div>
         </div>
     );
