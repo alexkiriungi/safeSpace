@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Button, Textarea } from "flowbite-react";
 
 
-export default function Comment({comment, onLike }) {
+export default function Comment({comment, onLike, onEdit }) {
     const { currentUser } = useSelector((state) => state.user);
     const [ isEditing, setIsEditing ] = useState(false);
     const [ user, setUser ] = useState({});
@@ -28,6 +28,27 @@ export default function Comment({comment, onLike }) {
         setIsEditing(true);
         setEditedContent(comment.content);
     };
+
+    const handleSave = async () => {
+        try {
+            const res = await fetch(`/api/comment/editComment/${comment._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content: editedContent
+                })
+            });
+            if (res.ok) {
+                setIsEditing(false);
+                onEdit(comment, editedContent);
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
     return (
         <div className='flex p-4 border-b dark:border-gray-600 text-sm'>
             <div className="flex-shrink-0 mr-3">
@@ -55,6 +76,7 @@ export default function Comment({comment, onLike }) {
                             type="button"
                             size='sm'
                             gradientDuoTone='purpleToBlue'
+                            onClick={handleSave}
                             >
                                 Save
                             </Button>
