@@ -129,7 +129,7 @@ export default function CommentSection ({postId}) {
                             <p>{comments.length}</p>
                         </div>
                     </div>
-                    {comments.map(comment => (
+                    {comments.map((comment) => (
                         <Comment 
                         key={comment._id}
                         comment={comment} 
