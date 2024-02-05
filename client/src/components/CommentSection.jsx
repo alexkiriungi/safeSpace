@@ -22,7 +22,7 @@ export default function CommentSection ({postId}) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ content:comment, postId, userId: currentUser._id}),
+                body: JSON.stringify({ content:comment, postId, userId: currentUser._id }),
             });
             const data = await res.json();
             if (res.ok) {
@@ -47,7 +47,7 @@ export default function CommentSection ({postId}) {
             }
         }
         getComments();
-    }, [postId])
+    }, [postId]);
 
 
     return (
