@@ -45,7 +45,8 @@ export default function Comment({comment, onLike }) {
                     onClick={()=>onLike(comment._id)}
                     className={`text-gray-500 hover:text-blue-500 
                     ${currentUser && comment.likes.includes(currentUser._id) && 
-                    '!text-blue-500'}`}>
+                    '!text-blue-500'}`}
+                    >
                         <FaThumbsUp className="text-sm"/>
                     </button>
                     <p className="text-gray-400">
