@@ -16,7 +16,7 @@ export default function DashComments() {
         const res = await fetch(`/api/comment/getcomments`);
         const data = await res.json();
         if (res.ok) {
-          setUsers(data.comments);
+          setComments(data.comments);
           if (data.comments.length < 9) {
             setShowMore(false);
           }

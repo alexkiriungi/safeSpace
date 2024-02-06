@@ -103,15 +103,15 @@ export const getcomments = async (req, res, next) => {
             .sort({ createdAt: sortDirection })
             .skip(startIndex)
             .limit(limit);
-            const totalComments = await Comment.countDocuments();
-            const now = new Date();
-            const oneMonthAgo = new Date(
-                now.getFullYear(),
-                now.getMonth() -1,
-                now.getDate()
-            );
-            const lastMonthComments = await Comment.countDocuments({ createdAt: { $gte: oneMonthAgo }});
-            res.status(200).json({ comments, totalComments, lastMonthComments})
+        const totalComments = await Comment.countDocuments();
+        const now = new Date();
+        const oneMonthAgo = new Date(
+            now.getFullYear(),
+            now.getMonth() -1,
+            now.getDate()
+        );
+        const lastMonthComments = await Comment.countDocuments({ createdAt: { $gte: oneMonthAgo }});
+        res.status(200).json({ comments, totalComments, lastMonthComments})
     } catch (error) {
         next(error);
     }
