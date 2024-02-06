@@ -13,7 +13,7 @@ export default function DashComments() {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch(`/api/user/getcomments`);
+        const res = await fetch(`/api/comment/getcomments`);
         const data = await res.json();
         if (res.ok) {
           setUsers(data.comments);
@@ -33,7 +33,7 @@ export default function DashComments() {
   const handleShowMore = async () => {
     const startIndex = comments.length;
     try {
-      const res = await fetch(`/api/user/getcomments?startIndex=${startIndex}`);
+      const res = await fetch(`/api/comment/getcomments?startIndex=${startIndex}`);
       const data = await res.json();
       if (res.ok) {
         setUsers((prev) => [...prev, ...data.comments]);
@@ -71,7 +71,7 @@ export default function DashComments() {
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
-              <Table.HeadCell>Date created</Table.HeadCell>
+              <Table.HeadCell>Date updated</Table.HeadCell>
               <Table.HeadCell>Comment content</Table.HeadCell>
               <Table.HeadCell>Number of likes</Table.HeadCell>
               <Table.HeadCell>PostId</Table.HeadCell>
@@ -85,20 +85,17 @@ export default function DashComments() {
                     { new Date(comment.updatedAt).toLocaleDateString() }
                   </Table.Cell>
                   <Table.Cell>
-                    <img 
-                    src={user.profilePicture}
-                    alt={user.username} 
-                    className='w-10 h-10 object-cover bg-gray-500 rounded-full' />
+                    {comment.content}
                   </Table.Cell>
                   <Table.Cell>
-                    {user.username}
+                    {comment.numberOfLikes}
                   </Table.Cell>
-                  <Table.Cell>{user.email}</Table.Cell>
-                  <Table.Cell>{user.isAdmin ? (<FaCheck className='text-green-500' />) : (<FaTimes className='text-red-500' />)}</Table.Cell>
+                  <Table.Cell>{comment.postId}</Table.Cell>
+                  <Table.Cell>{comment.userId}</Table.Cell>
                   <Table.Cell>
                     <span onClick={() => {
                       setShowModal(true);
-                      setUserIdToDelete(user._id);
+                      setCommentIdToDelete(comment._id);
                     }} 
                     className='font-medium text-red-500 hover:underline 
                       cursor-pointer' >
@@ -119,7 +116,7 @@ export default function DashComments() {
 
         </>
       ) : (
-        <p>No users available at the moment</p>
+        <p>No comments available at the moment!</p>
       )} 
       <Modal show={showModal} onClose={()=>setShowModal(false)} popup size='md'>
         <Modal.Header />
@@ -129,9 +126,9 @@ export default function DashComments() {
                 dark:text-gray-200 mb-4 mx-auto' />
                 <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400' 
                 >
-                    Are you sure you want to delete this user?</h3>
+                    Are you sure you want to delete this comment?</h3>
                 <div className="flex justify-center gap-4">
-                    <Button color='failure' onClick={handleDeleteUser}>
+                    <Button color='failure' onClick={handleDeleteComment}>
                         Yes, I'm sure
                     </Button>
                     <Button color='gray' onClick={()=> setShowModal(false)}>No, cancel</Button>

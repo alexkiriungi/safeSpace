@@ -90,3 +90,7 @@ export const deleteComment = async (req, res, next) => {
         next(error);
     }
 };
+
+export const getcomments = async () => {
+    
+};

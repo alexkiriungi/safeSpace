@@ -119,7 +119,7 @@ export default function DashPosts() {
 
         </>
       ) : (
-        <p>No users available at the moment</p>
+        <p>No users available at the moment!</p>
       )} 
       <Modal show={showModal} onClose={()=>setShowModal(false)} popup size='md'>
         <Modal.Header />
