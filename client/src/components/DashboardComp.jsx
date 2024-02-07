@@ -41,7 +41,13 @@ export default function DashboardComp() {
 
         };
         const fetchComments = async () => {
-
+            const res = await fetch('/api/comment/getcomments?limit=5');
+            const data = await res.json();
+            if (res.ok) {
+                setComments(data.comments);
+                setTotalComments(data.totalComments);
+                setLastMonthComments(data.lastMonthComments);
+            }
         };
         if (currentUser.isAdmin) {
             fetchUsers();
