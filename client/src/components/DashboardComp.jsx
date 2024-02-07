@@ -14,21 +14,30 @@ export default function DashboardComp() {
     const { currentUser } = useSelector((state) => state.user);
 
     useEffect(() => {
+        const fetchUsers = async () => {
         try {
-            const fetchUsers = async () => {
-                const res = await fetch('/api/user/getusers?limit=5')
-                const data = await res.json();
-                if (res.ok) {
-                    setUsers(data.users);
-                    setTotalUsers(data.totalUsers)
-                    setLastMonthUsers(data.lasMonthUsers)
-                }
-            };
+            const res = await fetch('/api/user/getusers?limit=5');
+            const data = await res.json();
+            if (res.ok) {
+                setUsers(data.users);
+                setTotalUsers(data.totalUsers);
+                setLastMonthUsers(data.lasMonthUsers);
+            }
         } catch (error) {
             console.log(error.message);
-        }
+        }};
         const fetchPosts = async () => {
-
+            try {
+                const res = await fetch('/api/post/getposts?limit=5');
+                const data = await res.json();
+                if (res.ok) {
+                    setPosts(data.posts);
+                    setTotalPosts(data.totalPosts);
+                    setLastMonthPosts(data.lastMonthPosts);
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
 
         };
         const fetchComments = async () => {
