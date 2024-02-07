@@ -8,6 +8,7 @@ import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useState, useEffect } from 'react';
 
+
 export default function Header() {
     const path = useLocation().pathname;
     const location = useLocation(); 
@@ -47,7 +48,10 @@ export default function Header() {
         urlParams.set('searchTerm', searchTerm);
         const searchQuery = urlParams.toString();
         navigate(`/search/${searchQuery}`);
-    }
+    };
+    const handleSearch = () => {
+        navigate('/search');
+    };
 
     return (
         <Navbar className='border-b-2'>
@@ -61,14 +65,14 @@ export default function Header() {
                 <TextInput 
                     type='text'
                     placeholder='Search...'
-                    rightIcon={AiOutlineSearch}
+                    rightIcon={AiOutlineSearch}                
                     className='hidden lg:inline'
                     value={searchTerm}
                     oChange={(e)=> setSearchTerm(e.target.value)}
                     />
             </form>
             <Button className='w-12 h-10 lg:hidden' color='gray' pill>
-                <AiOutlineSearch />
+                {<AiOutlineSearch onClick={handleSearch}/>}
             </Button>
             <div className='flex gap-2 md:order-2'>
                 <Button className='w-12 h-10 sm:inline' color='gray' pill onClick={() => 
