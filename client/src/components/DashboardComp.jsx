@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function DashboardComp() {
@@ -9,8 +9,38 @@ export default function DashboardComp() {
     const [ totalPosts, setTotalPosts ] = useState(0);
     const [ totalComments, setTotalComments ] = useState(0);
     const [ lasMonthUsers, setLastMonthUsers ] = useState(0);
-    const [ lastMonthPosts, setLastMonthPosts ] = usesState(0);
+    const [ lastMonthPosts, setLastMonthPosts ] = useState(0);
     const [ lastMonthComments, setLastMonthComments ] = useState(0);
+    const { currentUser } = useSelector((state) => state.user);
+
+    useEffect(() => {
+        try {
+            const fetchUsers = async () => {
+                const res = await fetch('/api/user/getusers?limit=5')
+                const data = await res.json();
+                if (res.ok) {
+                    setUsers(data.users);
+                    setTotalUsers(data.totalUsers)
+                    setLastMonthUsers(data.lasMonthUsers)
+                }
+            };
+        } catch (error) {
+            console.log(error.message);
+        }
+        const fetchPosts = async () => {
+
+
+        };
+        const fetchComments = async () => {
+
+        };
+        if (currentUser.isAdmin) {
+            fetchUsers();
+            fetchPosts();
+            fetchComments();
+        }
+    }, [currentUser]);
+
     return (
         <div>DashboardComp</div>
     );
